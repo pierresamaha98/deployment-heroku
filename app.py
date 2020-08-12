@@ -3,13 +3,8 @@
 
 # In[2]:
 
-
 import flask
-import pickle
 import pandas as pd
-#now we weill load the saved model
-with open(f'model/mysaved_md_pickle.pkl', 'rb') as f:
-    loaded_model = pickle.load(f)
     
 app = flask.Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
@@ -31,7 +26,7 @@ def main():
         input_variables = pd.DataFrame([[AverageAmounttransactionday, Transaction_amount, Isdeclined,TotalNumberofdeclinesday, isForeignTransaction,isHighRiskCountry,Daily_chargeback_avg_amt,month_avg_chbk_amt,month_chbk_freq, avgs]],
                                        columns=['AverageAmount_transaction_day','Transaction_amount', 'IsDeclined', 'TotalNumberOfDeclines_day', 'isForeignTransaction', 'isHighRiskCountry', 'Daily_chargeback_avg_amt', '6_month_avg_chbk_amt','6_month_chbk_freq','avgs'],
                                        dtype=float)
-        prediction = loaded_model.predict(input_variables)[0]
+       
         return flask.render_template('main.html', result=prediction,
                                      )
 if __name__ == '__main__':
@@ -45,13 +40,3 @@ if __name__ == '__main__':
 
 
 # In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
